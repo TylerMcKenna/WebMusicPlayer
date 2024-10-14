@@ -1,19 +1,7 @@
-var about;   
-function slay() {
-    about = document.getElementById("about");
-    about.style.color = 'blue';
-    console.log("test");
+let playpause_btn = document.querySelector(".playpause-track");
 
-    var mysql = require('mysql');
+let track_index = 0;
+let isPlaying = false;
+let updateTimer;
 
-    var con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "password123"
-    });
-
-    con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-    });
-}
+let curr_track = document.createElement('audio');
