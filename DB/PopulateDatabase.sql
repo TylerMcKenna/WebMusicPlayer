@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users, artists, playlists, songs, playlist_songs;
 
-CREATE TABLE users (
-	userID INT NOT NULL,
+CREATE TABLE IF NOT EXISTS users (
+	userID INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(25) NOT NULL,
     email VARCHAR(25) NOT NULL,
     -- Change to hash later down the line
@@ -9,62 +9,70 @@ CREATE TABLE users (
     PRIMARY KEY (userID)
 );
 
-CREATE TABLE artists (
-	artistID INT NOT NULL,
-    name VARCHAR(25) NOT NULL,
+CREATE TABLE IF NOT EXISTS artists (
+	artistID INT NOT NULL AUTO_INCREMENT,
+    artistName VARCHAR(25) NOT NULL,
     PRIMARY KEY (artistID)
 );
 
-CREATE TABLE playlists (
-	playlistID INT NOT NULL,
-	name VARCHAR(25),
+CREATE TABLE IF NOT EXISTS playlists (
+	playlistID INT NOT NULL AUTO_INCREMENT,
+	playlistName VARCHAR(25),
     userID INT NOT NULL,
     PRIMARY KEY (playlistID),
     FOREIGN KEY (userID)
 		REFERENCES Users(userID)
+		ON DELETE RESTRICT 
+        ON UPDATE CASCADE
 );
 
-CREATE TABLE songs (
-	songID INT NOT NULL,
-    name VARCHAR(50),
-    path VARCHAR(2000),
+CREATE TABLE IF NOT EXISTS songs (
+	songID INT NOT NULL AUTO_INCREMENT,
+    songName VARCHAR(50),
+    songPath VARCHAR(2000),
     artistID INT NOT NULL,
     PRIMARY KEY (songID),
 	FOREIGN KEY (artistID)
 		REFERENCES Artists(artistID)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 );
 
-CREATE TABLE playlist_songs (
+CREATE TABLE IF NOT EXISTS playlist_songs (
 	playlistID INT NOT NULL,
 	songID INT NOT NULL,
     PRIMARY KEY (playlistID, songID),
     FOREIGN KEY (playlistID)
-		REFERENCES Playlists(playlistID),
+		REFERENCES Playlists(playlistID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
 	FOREIGN KEY (songID)
 		REFERENCES Songs(songID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
-INSERT INTO users (userID, username, email, userPassword)
-	VALUES (1, 'test100', 'tester@gmail.com', 'test123')
+INSERT INTO users (username, email, userPassword)
+	VALUES ('test100', 'tester@gmail.com', 'test123')
 ;
 
-INSERT INTO artists (artistID, name)
-	VALUES (1,'Taylor Swift'),
-		   (2,'Zion. T'),
-           (3,'The Real Group'),
-           (4,'Rachmaninoff')
+INSERT INTO artists (artistName)
+	VALUES ('Taylor Swift'),
+		   ('Zion. T'),
+           ('The Real Group'),
+           ('Rachmaninoff')
 ;
 
-INSERT INTO playlists (playlistId, name, userID)
-	VALUES (1,'tests favorites',1),
-		   (2,'worst songs of all time',1)
+INSERT INTO playlists (playlistName, userID)
+	VALUES ('tests favorites',1),
+		   ('worst songs of all time',1)
 ;
 
-INSERT INTO songs (songID, name, path, artistID)
-	VALUES (1,'Shake It Off','WebMusicPlayer\\Music\\ShakeItOff-TaylorSwift.mp3',1),
-           (2,'Complex','WebMusicPlayer\\Music\\Complex-ZionT.mp3',2),
-           (3,'There Will Never Be Another You','WebMusicPlayer\\Music\\ThereWillNeverBeAnotherYou-TheRealGroup.mp3',3),
-           (4,'Prelude in G Minor','WebMusicPlayer\\Music\\PreludeInGMinor-Rachmaninoff.mp3',4)
+INSERT INTO songs (songName, songPath, artistID)
+	VALUES ('Shake It Off','WebMusicPlayer\\Music\\ShakeItOff-TaylorSwift.mp3',1),
+           ('Complex','WebMusicPlayer\\Music\\Complex-ZionT.mp3',2),
+           ('There Will Never Be Another You','WebMusicPlayer\\Music\\ThereWillNeverBeAnotherYou-TheRealGroup.mp3',3),
+           ('Prelude in G Minor','WebMusicPlayer\\Music\\PreludeInGMinor-Rachmaninoff.mp3',4)
 ;
 
 INSERT INTO playlist_songs (playlistID, songID)

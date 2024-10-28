@@ -4,8 +4,20 @@ const path = require('path');
 const express = require("express");
 const app = express();
 
+// Routing
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, "index.html"));
+});
+    
+app.use("/static", express.static('./static/'));
+
+app.get("/artists", (req, res) => {
+    res.sendFile(path.join(__dirname, "artists.html"));
+});
+
+app.get("/playlists", (req, res) => {
+    res.sendFile(path.join(__dirname, "playlists.html"));
 });
 
 app.get('/api/songs', (req, res) => {
