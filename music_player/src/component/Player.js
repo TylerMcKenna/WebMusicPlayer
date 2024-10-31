@@ -3,6 +3,7 @@ import useSound from "use-sound"; // for handling the sound
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
 import { IconContext } from "react-icons"; // for customazing the icons
+import zion from "./..\\static\\Music\\Complex-ZionT.mp3"
 
 export default function Player() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -10,9 +11,11 @@ export default function Player() {
   const [play, { pause, duration, sound }] = useSound(songUrl);
 
   const playingButton = () => {
+      //useSound(songUrl);
       if (isPlaying) {
           pause();
           setIsPlaying(false);
+          console.log(sound)
       } else {
           play();
           setIsPlaying(true);
@@ -22,7 +25,7 @@ export default function Player() {
   useEffect(() => {
     fetch("http://localhost:8080/api/songs")
       .then(response => response.json())
-      .then(data => console.log(data["songPath"]))
+      .then(data => sound = setSongUrl["songPath"])
       .catch(error => console.error("Error fetching data:", error))
    }, []);  
 

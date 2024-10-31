@@ -68,11 +68,12 @@ INSERT INTO playlists (playlistName, userID)
 		   ('worst songs of all time',1)
 ;
 
+-- Later down the line reduce filepath to just be the mp3 name as ./..\\\\static\\\\Music\\\\ is extremely redundant
 INSERT INTO songs (songName, songPath, artistID)
-	VALUES ('Shake It Off','WebMusicPlayer\\Music\\ShakeItOff-TaylorSwift.mp3',1),
-           ('Complex','WebMusicPlayer\\Music\\Complex-ZionT.mp3',2),
-           ('There Will Never Be Another You','WebMusicPlayer\\Music\\ThereWillNeverBeAnotherYou-TheRealGroup.mp3',3),
-           ('Prelude in G Minor','WebMusicPlayer\\Music\\PreludeInGMinor-Rachmaninoff.mp3',4)
+	VALUES ('Shake It Off','./..\\\\static\\\\Music\\\\ShakeItOff-TaylorSwift.mp3',1),
+           ('Complex','./..\\\\static\\\\Music\\\\Complex-ZionT.mp3',2),
+           ('There Will Never Be Another You','./..\\\\static\\\\Music\\\\ThereWillNeverBeAnotherYou-TheRealGroup.mp3',3),
+           ('Prelude in G Minor','./..\\\\static\\\\Music\\\\PreludeInGMinor-Rachmaninoff.mp3',4)
 ;
 
 INSERT INTO playlist_songs (playlistID, songID)
