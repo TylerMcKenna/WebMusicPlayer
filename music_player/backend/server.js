@@ -3,22 +3,12 @@ const path = require('path');
 
 const express = require("express");
 const app = express();
-
-// Routing
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
     
 app.use("/static", express.static('./static/'));
 
-app.get("/artists", (req, res) => {
-    res.sendFile(path.join(__dirname, "artists.html"));
-});
-
-app.get("/playlists", (req, res) => {
-    res.sendFile(path.join(__dirname, "playlists.html"));
-});
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, '../src/index.js'))
+})
 
 app.get('/api/songs', (req, res) => {
     const mysql = require("mysql");
@@ -37,12 +27,12 @@ app.get('/api/songs', (req, res) => {
         console.log("Connection established");
     }));
 
-    connection.query("SELECT * FROM musicdatabase.songs", (err, rows) => {
+    connection.query("SELECT * FROM musicdatabase.songs WHERE songID=2", (err, rows) => {
         if (err) throw err;
 
         console.log("Data recieved from database");
         console.log(rows);
-        res.json(rows);
+        res.json(rows[1]);
     });
 
     connection.end(err => {});
