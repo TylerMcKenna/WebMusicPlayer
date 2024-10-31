@@ -6,9 +6,8 @@ const app = express();
     
 app.use("/static", express.static('./static/'));
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/index.js'))
-})
+const cors = require('cors');
+app.use(cors());
 
 app.get('/api/songs', (req, res) => {
     const mysql = require("mysql");
@@ -32,7 +31,7 @@ app.get('/api/songs', (req, res) => {
 
         console.log("Data recieved from database");
         console.log(rows);
-        res.json(rows[1]);
+        res.json(rows[0]);
     });
 
     connection.end(err => {});
