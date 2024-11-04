@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS songs (
 	songID INT NOT NULL AUTO_INCREMENT,
     songName VARCHAR(50),
     songPath VARCHAR(2000),
+    imgPath VARCHAR(2000),
     artistID INT NOT NULL,
     PRIMARY KEY (songID),
 	FOREIGN KEY (artistID)
@@ -69,11 +70,11 @@ INSERT INTO playlists (playlistName, userID)
 ;
 
 -- Later down the line reduce filepath to just be the mp3 name as ./..\\\\static\\\\Music\\\\ is extremely redundant
-INSERT INTO songs (songName, songPath, artistID)
-	VALUES ('Shake It Off','./..\\\\static\\\\Music\\\\ShakeItOff-TaylorSwift.mp3',1),
-           ('Complex','./..\\\\static\\\\Music\\\\Complex-ZionT.mp3',2),
-           ('There Will Never Be Another You','./..\\\\static\\\\Music\\\\ThereWillNeverBeAnotherYou-TheRealGroup.mp3',3),
-           ('Prelude in G Minor','./..\\\\static\\\\Music\\\\PreludeInGMinor-Rachmaninoff.mp3',4)
+INSERT INTO songs (songName, songPath, imgPath, artistID)
+	VALUES ('Shake It Off','ShakeItOff-TaylorSwift.mp3','shake-it-off.png',1),
+           ('Complex','Complex-ZionT.mp3','complex.jpg',2),
+           ('There Will Never Be Another You','ThereWillNeverBeAnotherYou-TheRealGroup.mp3','there-will-never-be-another-you.png',3),
+           ('Prelude in G Minor','PreludeInGMinor-Rachmaninoff.mp3','prelude-in-g-minor.png',4)
 ;
 
 INSERT INTO playlist_songs (playlistID, songID)

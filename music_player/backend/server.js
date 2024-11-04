@@ -26,12 +26,12 @@ app.get('/api/songs', (req, res) => {
         console.log("Connection established");
     }));
 
-    connection.query("SELECT * FROM musicdatabase.songs WHERE songID=2", (err, rows) => {
+    connection.query("SELECT * FROM musicdatabase.songs", (err, rows) => {
         if (err) throw err;
 
         console.log("Data recieved from database");
         console.log(rows);
-        res.json(rows[0]);
+        res.json(rows);
     });
 
     connection.end(err => {});

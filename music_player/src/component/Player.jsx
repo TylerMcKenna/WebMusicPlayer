@@ -1,38 +1,36 @@
-import { useEffect, useState } from "react"; 
-import useSound from "use-sound"; // for handling the sound
+import { useState } from "react"; 
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
 import { IconContext } from "react-icons"; // for customazing the icons
+import SongList from "./SongList.jsx"
 
 export default function Player() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [songUrl, setSongUrl] = useState(null);
+  //const [isPlaying, setIsPlaying] = useState(false);
+  const [songs, setSongs] = useState(null)
   
   fetch("http://localhost:8080/api/songs")
   .then(response => response.json())
-  .then(data => setSongUrl(data["songPath"]))
+  .then(data => {
+    setSongs(data);
+  }, [])
   .catch(error => console.error("Error fetching data:", error));
 
-  let [play, { pause, duration, sound }] = useSound(songUrl);
+  console.log(songs)
 
-  const playingButton = () => {
-      if (isPlaying) {
-          pause();
-          setIsPlaying(false);
-          console.log(songUrl);
-          console.log(sound);
-      } else {
-          play();
-          setIsPlaying(true);
-      }
-  };
+  if (!songs) {
+    return <p>Loading songs!</p>;
+  }
 
   return (
-      <div className="component">
+    <SongList
+    songs={songs}
+    />
+  );
+  /*    <div className="component">
         <h2>Playing Now</h2>
         <img
           className="musicCover"
-          src="https://picsum.photos/200/200"
+          src={songImg}
         />
         <div>
           <h3 className="title">Rubaiyyan</h3>
@@ -64,5 +62,5 @@ export default function Player() {
           </button>
         </div>
       </div>
-    );
+    );*/
 }
