@@ -1,4 +1,3 @@
-import './App.css';
 import Player from './component/Player.jsx'
 
 function App() {

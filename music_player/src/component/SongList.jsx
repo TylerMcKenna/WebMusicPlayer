@@ -1,33 +1,23 @@
 import SongListItem from "./SongListItem.jsx";
+import styles from "../styles/SongList.css";
 
 export default function SongList({ songs }) {
-
-    /*{songs.map(song => {
-        return (
-            <SongListItem
-            songId={song[0]}
-            songname={song[1]}
-            songPath={song[2]}
-            imgPath={song[3]}
-            />
-        )
-    })}    */
     // Make check for no items in songs
     return (
         <table>
             <tr>
-                <td>Song ID</td>
-                <td>Song Name</td>
-                <td>Song Path</td>
-                <td>Image Path</td>
+                <th>Song ID</th>
+                <th>Song Name</th>
+                <th>Song Path</th>
+                <th>Image Path</th>
             </tr>
             {songs.map(song => {
             return (
                 <SongListItem
-                songId={song[0]}
-                songname={song[1]}
-                songPath={song[2]}
-                imgPath={song[3]}
+                songID={song.songID}
+                songName={song.songName}
+                songPath={song.songPath}
+                imgPath={song.imgPath}
                 />
                 )
             })}    
