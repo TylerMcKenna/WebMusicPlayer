@@ -7,24 +7,27 @@ import SongList from "./SongList.jsx"
 export default function Player() {
   //const [isPlaying, setIsPlaying] = useState(false);
   const [songs, setSongs] = useState(null)
-  
-  fetch("http://localhost:8080/api/songs")
-  .then(response => response.json())
-  .then(data => {
-    setSongs(data);
-  }, [])
-  .catch(error => console.error("Error fetching data:", error));
-
-  console.log(songs)
+  const [currentSong, setCurrentSong] = useState(null);
 
   if (!songs) {
+    fetch("http://localhost:8080/api/songs")
+    .then(response => response.json())
+    .then(data => {
+      setSongs(data);
+    }, [])
+    .catch(error => console.error("Error fetching data:", error));
     return <p>Loading songs!</p>;
   }
 
+  const handleSongSelect = (songPath) => {
+      setCurrentSong(songPath)
+  }
+
   return (
-    <SongList
-    songs={songs}
-    />
+      <SongList 
+      songs={songs}
+      handleSong={handleSongSelect}
+      />
   );
   /*    <div className="component">
         <h2>Playing Now</h2>

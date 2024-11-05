@@ -1,7 +1,8 @@
 import SongListItem from "./SongListItem.jsx";
-import styles from "../styles/SongList.css";
+import "../styles/SongList.css";
+import { useState } from "react";
 
-export default function SongList({ songs }) {
+export default function SongList({ songs, handleSongSelect }) {
     // Make check for no items in songs
     return (
         <table>
@@ -18,6 +19,7 @@ export default function SongList({ songs }) {
                 songName={song.songName}
                 songPath={song.songPath}
                 imgPath={song.imgPath}
+                handleSongSelect={handleSongSelect}
                 />
                 )
             })}    
