@@ -2,7 +2,8 @@ import { useState } from "react";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
 import { IconContext } from "react-icons"; // for customazing the icons
-import SongList from "./SongList.jsx"
+import SongList from "./SongList.jsx";
+import Playbar from "./Playbar.jsx";
 
 export default function Player() {
   //const [isPlaying, setIsPlaying] = useState(false);
@@ -19,15 +20,20 @@ export default function Player() {
     return <p>Loading songs!</p>;
   }
 
-  const handleSongSelect = (songPath) => {
-      setCurrentSong(songPath)
-  }
-
   return (
-      <SongList 
-      songs={songs}
-      handleSong={handleSongSelect}
+    <>
+      <Playbar 
+        song={currentSong}
       />
+      <SongList 
+        songs={songs}
+        handleSongSelect={
+          (songPassed) => {
+          setCurrentSong(songPassed);
+        }
+      }
+      />
+    </>
   );
   /*    <div className="component">
         <h2>Playing Now</h2>

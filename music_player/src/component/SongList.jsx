@@ -19,6 +19,7 @@ export default function SongList({ songs, handleSongSelect }) {
                 songName={song.songName}
                 songPath={song.songPath}
                 imgPath={song.imgPath}
+                song={song}
                 handleSongSelect={handleSongSelect}
                 />
                 )
