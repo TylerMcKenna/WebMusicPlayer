@@ -3,8 +3,8 @@ const path = require('path');
 
 const express = require("express");
 const app = express();
-    
-app.use("/static", express.static('./static/'));
+
+app.use('/public', express.static(path.join(__dirname, '../public')))
 
 const cors = require('cors');
 app.use(cors());
@@ -26,7 +26,8 @@ app.get('/api/songs', (req, res) => {
         console.log("Connection established");
     }));
 
-    connection.query("SELECT * FROM musicdatabase.songs", (err, rows) => {
+    let queryVal = "SELECT s.songID,s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
+    connection.query(queryVal, (err, rows) => {
         if (err) throw err;
 
         console.log("Data recieved from database");

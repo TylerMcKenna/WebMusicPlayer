@@ -1,13 +1,15 @@
 export default function Playbar({ song }) {
-    const appendImgPath = "C:/Users/tyler/Desktop/School/CollegeWork/Semester 3/Database Design/WebMusicPlayer/music_player/public/static/Images/";
+    const appendSongPath = "/static/Music/";
 
     if (!song) {
         return <p>No song!</p>;
     }
 
+    console.log(appendSongPath + song.songPath);
+
     return (
         <audio controls>
-            <source src={appendImgPath + song.imgPath} type="audio/mp4"></source>;
+            <source src={appendSongPath + song.songPath} type="audio/mp4"></source>;
         </audio>
     );
 }

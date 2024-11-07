@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS playlists (
 CREATE TABLE IF NOT EXISTS songs (
 	songID INT NOT NULL AUTO_INCREMENT,
     songName VARCHAR(50),
-    songPath VARCHAR(2000),
-    imgPath VARCHAR(2000),
+    songPath VARCHAR(100),
+    imgPath VARCHAR(100),
     artistID INT NOT NULL,
     PRIMARY KEY (songID),
 	FOREIGN KEY (artistID)

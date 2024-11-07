@@ -22,9 +22,6 @@ export default function Player() {
 
   return (
     <>
-      <Playbar 
-        song={currentSong}
-      />
       <SongList 
         songs={songs}
         handleSongSelect={
@@ -32,6 +29,9 @@ export default function Player() {
           setCurrentSong(songPassed);
         }
       }
+      />
+      <Playbar 
+        song={currentSong}
       />
     </>
   );

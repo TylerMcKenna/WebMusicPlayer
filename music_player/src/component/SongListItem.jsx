@@ -1,7 +1,7 @@
 //Look into what export default is and if it's needed
-export default function SongListItem({ songID, songName, songPath, imgPath, song, handleSongSelect }) {
-    const appendSongPath = "C:/Users/tyler/Desktop/School/CollegeWork/Semester 3/Database Design/WebMusicPlayer/music_player/public/static/Music/";
-    const appendImgPath = "C:/Users/tyler/Desktop/School/CollegeWork/Semester 3/Database Design/WebMusicPlayer/music_player/public/static/Images/";
+export default function SongListItem({ songID, songName, songPath, imgPath, artistID, artistName, song, handleSongSelect }) {
+    const appendSongPath = "/static/Music/";
+    const appendImgPath = "/static/Images/";
 
     const doubleClickHandler = () => {
         handleSongSelect(song);
@@ -13,6 +13,8 @@ export default function SongListItem({ songID, songName, songPath, imgPath, song
             <td>{"" + songName}</td>
             <td>{appendSongPath + songPath}</td>
             <td>{appendImgPath + imgPath}</td>
+            <td>{"" + artistID}</td>
+            <td>{"" + artistName}</td>
         </tr>
     )
 }

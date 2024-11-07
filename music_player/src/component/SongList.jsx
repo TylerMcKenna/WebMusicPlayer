@@ -11,6 +11,8 @@ export default function SongList({ songs, handleSongSelect }) {
                 <th>Song Name</th>
                 <th>Song Path</th>
                 <th>Image Path</th>
+                <th>Artist ID</th>
+                <th>Artist Name</th>
             </tr>
             {songs.map(song => {
             return (
@@ -19,6 +21,8 @@ export default function SongList({ songs, handleSongSelect }) {
                 songName={song.songName}
                 songPath={song.songPath}
                 imgPath={song.imgPath}
+                artistID={song.artistID}
+                artistName={song.artistName}
                 song={song}
                 handleSongSelect={handleSongSelect}
                 />
