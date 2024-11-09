@@ -26,7 +26,7 @@ app.get('/api/songs', (req, res) => {
         console.log("Connection established");
     }));
 
-    let queryVal = "SELECT s.songID,s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
+    let queryVal = "SELECT s.songID, + s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
     connection.query(queryVal, (err, rows) => {
         if (err) throw err;
 

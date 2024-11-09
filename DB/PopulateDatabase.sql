@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS playlists (
 CREATE TABLE IF NOT EXISTS songs (
 	songID INT NOT NULL AUTO_INCREMENT,
     songName VARCHAR(50),
-    songPath VARCHAR(100),
-    imgPath VARCHAR(100),
+    songPath VARCHAR(2000),
+    imgPath VARCHAR(2000),
     artistID INT NOT NULL,
     PRIMARY KEY (songID),
 	FOREIGN KEY (artistID)
@@ -69,7 +69,6 @@ INSERT INTO playlists (playlistName, userID)
 		   ('worst songs of all time',1)
 ;
 
--- Later down the line reduce filepath to just be the mp3 name as ./..\\\\static\\\\Music\\\\ is extremely redundant
 INSERT INTO songs (songName, songPath, imgPath, artistID)
 	VALUES ('Shake It Off','ShakeItOff-TaylorSwift.mp3','shake-it-off.png',1),
            ('Complex','Complex-ZionT.mp3','complex.jpg',2),
