@@ -9,6 +9,29 @@ app.use('/public', express.static(path.join(__dirname, '../public')))
 const cors = require('cors');
 app.use(cors());
 
+app.use(express.json());
+
+const bcrypt = require("bcrypt");
+
+
+
+
+
+const users = [];
+
+app.get("/users", (req, res) => {
+    res.json(users);
+})
+
+app.post("/users", (req, res) => {
+    try{
+        const salt = bcrypt.genSalt()
+    }
+    const user = { name: req.body.name, password: req.body.password } 
+    users.push(user);
+    res.status(201).send();
+})
+
 app.get('/api/songs', (req, res) => {
     const mysql = require("mysql");
     const connection = mysql.createConnection({
@@ -25,6 +48,8 @@ app.get('/api/songs', (req, res) => {
         }
         console.log("Connection established");
     }));
+
+    // let testQuery = "INSERT INTO " + user name
 
     let queryVal = "SELECT s.songID, + s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
     connection.query(queryVal, (err, rows) => {
