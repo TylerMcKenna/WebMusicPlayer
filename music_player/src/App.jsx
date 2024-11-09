@@ -3,16 +3,19 @@ import Artists from './pages/Artists.jsx';
 import ArtistsPage from './pages/ArtistsPage.jsx';
 import Player from './pages/Player.jsx';
 import Playlists from './pages/Playlists.jsx';
+import Layout from "./Layout.jsx"
 
 function App() {
 
   return (
      <Router>
       <Routes>
-        <Route path="/artists" element={<Artists/>}/>
-        <Route path="/artistsPage" element={<ArtistsPage/>}/>
-        <Route path="/player" element={<Player/>}/>        
-        <Route path="/" element={<Playlists/>}/>
+        <Route element={<Layout/>}>
+          <Route path="/artists" element={<Artists/>}/>
+          <Route path="/artistsPage" element={<ArtistsPage/>}/>
+          <Route path="/player" element={<Player/>}/>        
+          <Route path="/" element={<Playlists/>}/>
+        </Route>
       </Routes>
      </Router>
   )
