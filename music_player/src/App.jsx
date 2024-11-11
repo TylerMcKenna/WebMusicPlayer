@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Artists from './pages/Artists.jsx';
-import ArtistsPage from './pages/ArtistsPage.jsx';
+import Admin from './pages/Admin.jsx';
 import Player from './pages/Player.jsx';
 import Playlists from './pages/Playlists.jsx';
 import Layout from "./Layout.jsx"
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route element={<Layout/>}>
           <Route path="/artists" element={<Artists/>}/>
-          <Route path="/artistsPage" element={<ArtistsPage/>}/>
+          <Route path="/admin" element={<Admin/>}/>
           <Route path="/player" element={<Player/>}/>        
           <Route path="/" element={<Playlists/>}/>
         </Route>

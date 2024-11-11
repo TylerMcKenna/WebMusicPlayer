@@ -6,8 +6,8 @@ export function Navbar() {
             <Link to="/artists">
                 <button>Artists</button>
             </Link>
-            <Link to="/artistsPage">
-                <button>ArtistsPage</button>
+            <Link to="/admin">
+                <button>Admin</button>
             </Link>
             <Link to="/player">
                 <button>Player</button>
