@@ -2,7 +2,7 @@ import { useState } from "react";
 import SongList from "../components/SongList.jsx";
 import Playbar from "../components/Playbar.jsx";
 
-export default function Player() {
+export function Player() {
   //const [isPlaying, setIsPlaying] = useState(false);
   const [songs, setSongs] = useState(null)
   const [currentSong, setCurrentSong] = useState(null);
@@ -33,3 +33,5 @@ export default function Player() {
     </>
   );
 }
+
+export default Player;

@@ -2,7 +2,7 @@ import SongListItem from "./SongListItem.jsx";
 import "../styles/SongList.css";
 import { useState } from "react";
 
-export default function SongList({ songs, handleSongSelect }) {
+export function SongList({ songs, handleSongSelect }) {
     // Make check for no items in songs
     return (
         <table>
@@ -14,7 +14,7 @@ export default function SongList({ songs, handleSongSelect }) {
                 <th>Artist ID</th>
                 <th>Artist Name</th>
             </tr>
-            {songs.map(song => {
+            {songs.map(song => {        
             return (
                 <SongListItem
                 songID={song.songID}
@@ -31,3 +31,5 @@ export default function SongList({ songs, handleSongSelect }) {
         </table>
     )
 }
+
+export default SongList;

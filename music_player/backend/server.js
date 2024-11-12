@@ -27,6 +27,9 @@ app.get("/users", (req, res) => {
     res.json(users);
 })
 
+
+
+
 app.post("/users", async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -37,6 +40,9 @@ app.post("/users", async (req, res) => {
         res.status(500).send();
     }
 })
+
+
+
 
 app.post("/users/login", async (req, res) => {
     const user = users.find(user => user.name == req.body.name)
@@ -53,6 +59,9 @@ app.post("/users/login", async (req, res) => {
         res.status(500).send();
     }
 })
+
+
+
 
 //Need validation
 app.post("/submitSong", (req, res) => {
@@ -80,6 +89,20 @@ app.post("/submitSong", (req, res) => {
     //Verification here most likely
     res.send(`Recieved: songName - ${songName}, songFile - ${songFile}, songImage - ${songImage}, artistID - ${artistID}`)
 
+    // Actually writing files into folders BROKEN
+    const appendSongPath = "/public/static/Music/";
+    const appendImgPath = "/public/static/Images/";
+    const fs = require("node:fs");
+    console.log("hey!")
+    fs.writeFile(path.join(__dirname, "..", appendSongPath, songFile), songFile, err => {
+        console.log(err)
+        return;
+    });
+    /*
+    fs.writeFile(appendImgPath + songImage.name, songImage, err => {
+        console.log(err)
+    });*/
+
     // Actually going into database
     // There is surely a better way to do this, consider procedures
     // Hopefully will be changed down the line
@@ -100,6 +123,9 @@ app.post("/submitSong", (req, res) => {
 
     connection.end(err => {});
 })
+
+
+
 
 app.get('/api/songs', (req, res) => {
     const mysql = require("mysql");
@@ -131,6 +157,9 @@ app.get('/api/songs', (req, res) => {
 
     connection.end(err => {});
 });
+
+
+
 
 app.listen("8080", () => {
     console.log("Server is listening on port 8080");

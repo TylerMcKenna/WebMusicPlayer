@@ -1,4 +1,4 @@
-export default function Playbar({ song }) {
+export function Playbar({ song }) {
     const appendSongPath = "/static/Music/";
 
     if (!song) {
@@ -13,3 +13,5 @@ export default function Playbar({ song }) {
         </audio>
     );
 }
+
+export default Playbar;

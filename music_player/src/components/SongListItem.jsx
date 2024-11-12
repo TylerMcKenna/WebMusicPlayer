@@ -1,5 +1,5 @@
 //Look into what export default is and if it's needed
-export default function SongListItem({ songID, songName, songPath, imgPath, artistID, artistName, song, handleSongSelect }) {
+export function SongListItem({ songID, songName, songPath, imgPath, artistID, artistName, song, handleSongSelect }) {
     const appendSongPath = "/static/Music/";
     const appendImgPath = "/static/Images/";
 
@@ -18,3 +18,5 @@ export default function SongListItem({ songID, songName, songPath, imgPath, arti
         </tr>
     )
 }
+
+export default SongListItem;
