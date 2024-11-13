@@ -11,6 +11,9 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 
+const fs = require("fs");
+const formidable = require("formidable");
+
 //const bcrypt = require("bcrypt");
 
 // Eventually need to remove password from here
@@ -27,7 +30,31 @@ var pool = mysql.createPool({
 
 // Front end form is sending file PATHS, need to configure them to send actual data.
 // Need validation
-app.post("/submitSong", (req, res) => {
+app.post("/submitSong", (req, res, next) => {
+
+    const form = new formidable.IncomingForm();
+
+    const appendSongPath = "/public/static/Music/";
+    const appendImgPath = "/public/static/Images/";
+
+    form.parse(req, (err, fields, files) => {
+        console.log("files: " + files)
+
+        let oldPath = files.songFile;
+        console.log("oldPath: " + oldPath);
+        let newPath = path.join(__dirname, "..", appendSongPath, oldPath);
+        console.log("newPath: " + newPath);
+        let rawSongData = fs.readFileSync(oldPath);
+        console.log("rawSongData: " + rawSongData);
+
+
+        fs.writeFile(newPath, rawSongData, (err) => {
+            if (err) console.log(err);
+            return res.send("Successfully uploaded!");
+        })
+    });
+})
+  /*
     const songName = req.body.songName;
     const songFile = req.body.songFile;
     const songImage = req.body.songImage;
@@ -38,12 +65,12 @@ app.post("/submitSong", (req, res) => {
     const appendSongPath = "/public/static/Music/";
     const appendImgPath = "/public/static/Images/";
     const fs = require("node:fs");
+    
     fs.writeFile(path.join(__dirname, "..", appendSongPath, songFile), songFile, err => {
         if (err != null) 
             console.log(err);
         return;
     });
-
     fs.writeFile(path.join(__dirname, "..", appendImgPath, songImage), songImage, err => {
         if (err != null) 
             console.log(err);
@@ -59,8 +86,7 @@ app.post("/submitSong", (req, res) => {
     pool.query(sql, function (error, results, fields) {
         if (error) throw error;
     });
-})
-
+    */
 
 
 

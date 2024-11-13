@@ -9,7 +9,7 @@ export function AddSong() {
     return (
         <>
             <h2>Add New Song</h2>
-            <form action="http://localhost:8080/submitSong" method="POST">
+            <form action="http://localhost:8080/submitSong" encType="multipart/form-data"method="POST">
                 <label>Enter the Song's Name:
                     <input name="songName" type="text" required />
                 </label>
