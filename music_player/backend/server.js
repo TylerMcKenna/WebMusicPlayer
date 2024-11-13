@@ -9,153 +9,70 @@ app.use('/public', express.static(path.join(__dirname, '../public')))
 const cors = require('cors');
 app.use(cors());
 
-app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
-// for processing form request on admin page    
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+// Eventually need to remove password from here
+var mysql = require("mysql");
+var pool = mysql.createPool({
+    connectionLimit : 10,
+    host            : "127.0.0.1",
+    user            : "root",
+    password        : "password123",
+    database        : "musicdatabase"
+});
 
+// https://www.youtube.com/watch?v=-RCnNyD0L-s => https://www.youtube.com/watch?v=-RCnNyD0L-s
 
-
-// https://www.youtube.com/watch?v=-RCnNyD0L-s
-
-const users = [];
-
-app.get("/users", (req, res) => {
-    res.json(users);
-})
-
-
-
-
-app.post("/users", async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = { name: req.body.name, password: hashedPassword } 
-        users.push(user);
-        res.status(201).send();
-    } catch {
-        res.status(500).send();
-    }
-})
-
-
-
-
-app.post("/users/login", async (req, res) => {
-    const user = users.find(user => user.name == req.body.name)
-    if (user == null) {
-        return res.status(400).send("cannot find user");
-    }
-    try {
-        if(await bcrypt.compare(req.body.password, user.password)) {
-            res.send("Success");
-        } else {
-            res.send("Not allowed");
-        }
-    } catch {
-        res.status(500).send();
-    }
-})
-
-
-
-
-//Need validation
+// Front end form is sending file PATHS, need to configure them to send actual data.
+// Need validation
 app.post("/submitSong", (req, res) => {
-    // Find a way to not duplicate this code a lot
-    const mysql = require("mysql");
-    const connection = mysql.createConnection({
-        host: "127.0.0.1",
-        user: "root",
-        database: "musicdatabase",
-        password: "password123"
-    });
-
-    connection.connect((err => {
-        if (err) {
-            console.log("Error connecting to database");
-            return;
-        }
-        console.log("Connection established");
-    }));
-
     const songName = req.body.songName;
     const songFile = req.body.songFile;
     const songImage = req.body.songImage;
     const artistID = req.body.artistID;
-    //Verification here most likely
+
     res.send(`Recieved: songName - ${songName}, songFile - ${songFile}, songImage - ${songImage}, artistID - ${artistID}`)
 
-    // Actually writing files into folders BROKEN
     const appendSongPath = "/public/static/Music/";
     const appendImgPath = "/public/static/Images/";
     const fs = require("node:fs");
-    console.log("hey!")
     fs.writeFile(path.join(__dirname, "..", appendSongPath, songFile), songFile, err => {
-        console.log(err)
+        if (err != null) 
+            console.log(err);
         return;
     });
-    /*
-    fs.writeFile(appendImgPath + songImage.name, songImage, err => {
-        console.log(err)
-    });*/
 
-    // Actually going into database
-    // There is surely a better way to do this, consider procedures
-    // Hopefully will be changed down the line
-    // This doesn't actually add the song to public/static/music yet
-    let sql = `INSERT INTO songs (songName, songPath, imgPath, artistID)` +
-              ` VALUES (\"${songName}\",` +
-                     `\"${songFile}\",` +
-                     `\"${songImage}\",` +
-                     `\"${artistID}\")`;
-    console.log(sql);
-    connection.query(sql, function (error, results, fields) {
-        if (error) throw error;
-        console.log(results.insertId);
+    fs.writeFile(path.join(__dirname, "..", appendImgPath, songImage), songImage, err => {
+        if (err != null) 
+            console.log(err);
+        return;
     });
 
-    //INSERT INTO songs (songName, songPath, imgPath, artistID)
-    //VALUES ("hi", "hi", "hi", "hi")
-
-    connection.end(err => {});
+    // There is surely a better way to do this, consider procedures
+    let sql = `INSERT INTO songs (songName, songPath, imgPath, artistID)` +
+              ` VALUES (\"${songName}\",` +
+                       `\"${songFile}\",` +
+                       `\"${songImage}\",` +
+                       `\"${artistID}\")`;
+    pool.query(sql, function (error, results, fields) {
+        if (error) throw error;
+    });
 })
 
 
 
 
 app.get('/api/songs', (req, res) => {
-    const mysql = require("mysql");
-    const connection = mysql.createConnection({
-        host: "127.0.0.1",
-        user: "root",
-        database: "musicdatabase",
-        password: "password123"
-    });
-
-    connection.connect((err => {
-        if (err) {
-            console.log("Error connecting to database");
-            return;
-        }
-        console.log("Connection established");
-    }));
-
-    // let testQuery = "INSERT INTO " + user name
-
     let queryVal = "SELECT s.songID, + s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
-    connection.query(queryVal, (err, rows) => {
+    pool.query(queryVal, (err, rows) => {
         if (err) throw err;
 
         console.log("Data recieved from database");
         console.log(rows);
         res.json(rows);
     });
-
-    connection.end(err => {});
 });
 
 
