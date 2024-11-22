@@ -1,5 +1,7 @@
+import { DeleteSongButton } from "./DeleteSongButton";
+
 //Look into what export default is and if it's needed
-export function SongListItem({ songID, songName, songPath, imgPath, artistID, artistName, song, handleSongSelect }) {
+export function SongListItem({ songID, songName, songPath, imgPath, artistID, artistName, song, handleSongSelect, isDelete }) {
     const appendSongPath = "/static/Music/";
     const appendImgPath = "/static/Images/";
 
@@ -15,6 +17,7 @@ export function SongListItem({ songID, songName, songPath, imgPath, artistID, ar
             <td>{appendImgPath + imgPath}</td>
             <td>{"" + artistID}</td>
             <td>{"" + artistName}</td>
+            { isDelete && (<td><DeleteSongButton /></td>)}
         </tr>
     )
 }

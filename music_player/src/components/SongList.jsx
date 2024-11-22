@@ -2,7 +2,7 @@ import SongListItem from "./SongListItem.jsx";
 import "../styles/SongList.css";
 import { useState } from "react";
 
-export function SongList({ songs, handleSongSelect }) {
+export function SongList({ songs, handleSongSelect, isDelete }) {
     // Make check for no items in songs
     return (
         <table>
@@ -25,6 +25,7 @@ export function SongList({ songs, handleSongSelect }) {
                 artistName={song.artistName}
                 song={song}
                 handleSongSelect={handleSongSelect}
+                isDelete={isDelete}
                 />
                 )
             })}    

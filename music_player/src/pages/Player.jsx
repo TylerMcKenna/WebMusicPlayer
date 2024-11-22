@@ -19,13 +19,14 @@ export function Player() {
 
   return (
     <>
-      <SongList 
+      <SongList
         songs={songs}
         handleSongSelect={
           (songPassed) => {
-          setCurrentSong(songPassed);
+            setCurrentSong(songPassed);
+          }
         }
-      }
+        isDelete={false}
       />
       <Playbar 
         song={currentSong}

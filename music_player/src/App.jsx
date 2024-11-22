@@ -3,7 +3,8 @@ import Artists from './pages/Artists.jsx';
 import Admin from './pages/Admin.jsx';
 import Player from './pages/Player.jsx';
 import Playlists from './pages/Playlists.jsx';
-import Layout from "./Layout.jsx"
+import Layout from "./Layout.jsx";
+import "./styles.css";
 
 function App() {
 

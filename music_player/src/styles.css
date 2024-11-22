@@ -1,0 +1,159 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Centering Wrapper */
+  body {
+    font-family: 'Arial', sans-serif; /* Change to preferred font */
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333; /* Neutral text color */
+    background-color: #f9f9f9; /* Light background */
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Center items horizontally */
+    height: 100vh; /* Full viewport height for consistent layout */
+    text-align: center; /* Centers inline text inside elements */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Anchor Tags */
+  a {
+    color: #007BFF; /* Primary link color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  a:hover {
+    color: #0056b3; /* Darker hover color */
+  }
+  
+  /* Buttons */
+  button, .button {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover, .button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Forms */
+  input, textarea, select {
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: #222; /* Slightly darker for emphasis */
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  /* Lists */
+  ul, ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left; /* Prevents list misalignment */
+  }
+  
+  ul li, ol li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Blockquote */
+  blockquote {
+    margin: 1rem auto;
+    padding: 10px 20px;
+    color: #555;
+    background-color: #f1f1f1;
+    border-left: 5px solid #007BFF;
+    font-style: italic;
+  }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem auto;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #007BFF;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Centers inline images */
+  }
+  
+  /* Utility Classes */
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-left {
+    text-align: left;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Media Query Example */
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  

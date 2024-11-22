@@ -88,7 +88,20 @@ app.post("/submitSong", (req, res, next) => {
     });
     */
 
-
+app.delete("/api/delete/:songId", (req, res) => {
+    const { songId } = req.params;
+    let queryVal = "DELETE FROM songs WHERE songID = ?";
+    pool.query(query, [id], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("An error occurred");
+        } else if (result.affectedRows === 0) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.status(200).send("Resource deleted successfully");
+        }
+    });
+});
 
 app.get('/api/songs', (req, res) => {
     let queryVal = "SELECT s.songID, + s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
@@ -100,8 +113,6 @@ app.get('/api/songs', (req, res) => {
         res.json(rows);
     });
 });
-
-
 
 
 app.listen("8080", () => {
