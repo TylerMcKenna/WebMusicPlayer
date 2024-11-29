@@ -3,6 +3,7 @@ import "../styles/SongList.css";
 import { useState } from "react";
 
 export function SongList({ songs, handleSongSelect, isDelete }) {
+    
     // Make check for no items in songs
     return (
         <table>
@@ -14,7 +15,7 @@ export function SongList({ songs, handleSongSelect, isDelete }) {
                 <th>Artist ID</th>
                 <th>Artist Name</th>
             </tr>
-            {songs.map(song => {        
+            {songs.map(song => {     
             return (
                 <SongListItem
                 songID={song.songID}

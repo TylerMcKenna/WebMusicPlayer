@@ -88,17 +88,22 @@ app.post("/submitSong", (req, res, next) => {
     });
     */
 
-app.delete("/api/delete/:songId", (req, res) => {
-    const { songId } = req.params;
-    let queryVal = "DELETE FROM songs WHERE songID = ?";
-    pool.query(query, [id], (err, result) => {
+app.delete("/api/delete/:songID", async (req, res) => {
+    const songID = req.params.songID;
+    console.log("Recieved DELETE request for SongID:", songID);
+    
+    let queryVal = "DELETE FROM songs WHERE songID = " + songID;
+
+    console.log(queryVal)
+    
+    pool.query(queryVal, (err, result) => {
         if (err) {
             console.error(err);
             res.status(500).send("An error occurred");
         } else if (result.affectedRows === 0) {
             res.status(404).send("Resource not found");
         } else {
-            res.status(200).send("Resource deleted successfully");
+            res.status(204).send("Resource deleted successfully");
         }
     });
 });
@@ -108,8 +113,6 @@ app.get('/api/songs', (req, res) => {
     pool.query(queryVal, (err, rows) => {
         if (err) throw err;
 
-        console.log("Data recieved from database");
-        console.log(rows);
         res.json(rows);
     });
 });

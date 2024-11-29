@@ -6,10 +6,12 @@ export function SongListItem({ songID, songName, songPath, imgPath, artistID, ar
     const appendImgPath = "/static/Images/";
 
     const doubleClickHandler = () => {
+        console.log(songID);
         handleSongSelect(song);
+        
     }
-
     return (
+        
         <tr onDoubleClick={doubleClickHandler}>
             <td>{"" + songID}</td>
             <td>{"" + songName}</td>
@@ -17,7 +19,7 @@ export function SongListItem({ songID, songName, songPath, imgPath, artistID, ar
             <td>{appendImgPath + imgPath}</td>
             <td>{"" + artistID}</td>
             <td>{"" + artistName}</td>
-            { isDelete && (<td><DeleteSongButton /></td>)}
+            { isDelete && (<td><DeleteSongButton songID={songID}/></td>)}
         </tr>
     )
 }

@@ -22,14 +22,11 @@ export function AddSong() {
                     <input name="songImage" type="file" accept="image/png, image/jpeg" required />
                 </label>
                 <br/>
-                ****  MUST BE AN ARTIST ID #, TEMPORARY. WILL BE A DROPDOWN LATER DOWN THE LINE
                 <label>Enter the Song's ArtistID:
                     <input name="artistID" type="text" required />
-                </label>****
-                <br/>
-                <label>Submit:
-                    <input type="submit" />
                 </label>
+                <br/>
+                    <input type="submit" />
             </form>
         </>
     )
