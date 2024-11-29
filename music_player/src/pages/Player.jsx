@@ -26,7 +26,6 @@ export function Player() {
             setCurrentSong(songPassed);
           }
         }
-        isDelete={false}
       />
       <Playbar 
         song={currentSong}

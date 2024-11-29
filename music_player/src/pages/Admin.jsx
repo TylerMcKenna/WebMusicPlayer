@@ -1,6 +1,6 @@
 import { AddSong } from "../components/AddSong";
 import { useState } from "react"; 
-import SongList from "../components/SongList.jsx";
+import AdminList from "../components/AdminList.jsx";
 
 export function Admin() {
     const [songs, setSongs] = useState(null)
@@ -19,11 +19,11 @@ export function Admin() {
         <>
             <h1>This is the Admin Page</h1>
             <AddSong />
-            <SongList
+            <AdminList
                 songs={songs}
                 handleSongSelect={() => console.log("lol")
                 }
-                isDelete={true}
+                isAdmin={true}
             />
         </>
     )

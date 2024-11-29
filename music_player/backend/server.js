@@ -108,6 +108,25 @@ app.delete("/api/delete/:songID", async (req, res) => {
     });
 });
 
+app.patch("/api/update/:songID/:songName", (req, res) => {
+    const { songID, songName } = req.params;
+
+    let queryVal = `UPDATE musicdatabase.songs SET songName = "${ songName }" WHERE songID = ${ songID }`
+
+    console.log(queryVal);
+
+    pool.query(queryVal, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("An error occurred");
+        } else if (result.affectedRows === 0) {
+            res.status(404).send("Resource not found");
+        } else {
+            res.status(200).send("Resource updated successfully");
+        }
+    });
+})
+
 app.get('/api/songs', (req, res) => {
     let queryVal = "SELECT s.songID, + s.songName,s.songPath,s.imgPath,a.artistID,a.artistName FROM songs AS s INNER JOIN artists AS a ON s.artistID = a.artistID;"
     pool.query(queryVal, (err, rows) => {

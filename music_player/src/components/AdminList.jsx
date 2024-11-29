@@ -2,12 +2,13 @@ import SongListItem from "./SongListItem.jsx";
 import "../styles/SongList.css";
 import { useState } from "react";
 
-export function SongList({ songs, handleSongSelect }) {
+export function AdminList({ songs, handleSongSelect }) {
     
     // Make check for no items in songs
     return ( <>
             <br/>
             <br/>
+        <h2>EDIT SONGS</h2>
         <table>
             <tr>
                 <th>Song ID</th>
@@ -28,7 +29,7 @@ export function SongList({ songs, handleSongSelect }) {
                 artistName={song.artistName}
                 song={song}
                 handleSongSelect={handleSongSelect}
-                isAdmin={false}
+                isAdmin={true}
                 />
                 )
             })}    
@@ -37,4 +38,4 @@ export function SongList({ songs, handleSongSelect }) {
     )
 }
 
-export default SongList;
+export default AdminList;
