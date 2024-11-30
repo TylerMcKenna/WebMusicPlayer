@@ -1,16 +1,39 @@
-// MAKE ARTIST A DROPDOWN LATER DOWN THE LINE!!!! IMPORTANT
+import { useRef, useEffect } from "react";
 
 export function AddSong() {
+    const form = useRef(null);
 
-    const submit = (name, song, image, artist) => {
+    useEffect(() => {
+        const handleSubmit = (e) => {
+            e.preventDefault();
 
-    } 
+            const fd = new FormData(form.current); // Corrected 'form.content' to 'form.current'
+
+            fetch('http://localhost:8080/submitSong', {
+                method: "POST",
+                body: fd,
+            });
+        };
+
+        const formElement = form.current;
+
+        if (formElement) {
+            formElement.addEventListener('submit', handleSubmit);
+        }
+
+        // Cleanup function to remove the event listener to avoid duplication
+        return () => {
+            if (formElement) {
+                formElement.removeEventListener('submit', handleSubmit);
+            }
+        };
+    }, []); // Empty dependency array ensures this effect runs only once
 
     return (
         <>
             <br/>
             <h2>Add New Song</h2>
-            <form action="http://localhost:8080/submitSong" encType="multipart/form-data"method="POST">
+            <form ref={form}>
                 <label>Enter the Song's Name:
                     <input name="songName" type="text" required />
                 </label>
@@ -19,16 +42,13 @@ export function AddSong() {
                     <input name="songFile" type="file" accept="audio/mp3" required />
                 </label>
                 <br/>
-                <label>Enter the Song's Image:
-                    <input name="songImage" type="file" accept="image/png, image/jpeg" required />
-                </label>
                 <br/>
                 <label>Enter the Song's ArtistID:
                     <input name="artistID" type="text" required />
                 </label>
                 <br/>
-                    <input type="submit" />
+                <input type="submit" />
             </form>
         </>
-    )
+    );
 }

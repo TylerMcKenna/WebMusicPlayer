@@ -28,73 +28,47 @@ var pool = mysql.createPool({
 
 // https://www.youtube.com/watch?v=-RCnNyD0L-s => https://www.youtube.com/watch?v=-RCnNyD0L-s
 
-// Front end form is sending file PATHS, need to configure them to send actual data.
-// Need validation
-app.post("/submitSong", (req, res, next) => {
-
-    const form = new formidable.IncomingForm();
-
-    const appendSongPath = "/public/static/Music/";
-    const appendImgPath = "/public/static/Images/";
-
-    form.parse(req, (err, fields, files) => {
-        console.log("files: " + files)
-
-        let oldPath = files.songFile;
-        console.log("oldPath: " + oldPath);
-        let newPath = path.join(__dirname, "..", appendSongPath, oldPath);
-        console.log("newPath: " + newPath);
-        let rawSongData = fs.readFileSync(oldPath);
-        console.log("rawSongData: " + rawSongData);
+app.use(express.urlencoded({ 
+    extended: false,
+    limit: 10000,
+    parameterLimit: 2
+}))
 
 
-        fs.writeFile(newPath, rawSongData, (err) => {
-            if (err) console.log(err);
-            return res.send("Successfully uploaded!");
-        })
-    });
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "../public/static/Music");
+    },
+    filename: function (req, file, callback) {
+        const filename = file.originalname;
+        callback(null, filename);
+    }
 })
-  /*
-    const songName = req.body.songName;
-    const songFile = req.body.songFile;
-    const songImage = req.body.songImage;
-    const artistID = req.body.artistID;
 
-    res.send(`Recieved: songName - ${songName}, songFile - ${songFile}, songImage - ${songImage}, artistID - ${artistID}`)
+const upload = multer({
+    storage: storage,
+})
 
-    const appendSongPath = "/public/static/Music/";
-    const appendImgPath = "/public/static/Images/";
-    const fs = require("node:fs");
-    
-    fs.writeFile(path.join(__dirname, "..", appendSongPath, songFile), songFile, err => {
-        if (err != null) 
-            console.log(err);
-        return;
-    });
-    fs.writeFile(path.join(__dirname, "..", appendImgPath, songImage), songImage, err => {
-        if (err != null) 
-            console.log(err);
-        return;
+app.post("/submitSong", upload.single("songFile"), (req, res) => {
+    let queryVal = `INSERT INTO songs (songName, songPath, imgPath, artistID) VALUES ("${req.body.songName}", "${req.file.originalname}", null, ${req.body.artistID})`
+
+    pool.query(queryVal, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("An error occurred");
+        } else {
+            res.status(201).send("Resource created successfully");
+        }
     });
 
-    // There is surely a better way to do this, consider procedures
-    let sql = `INSERT INTO songs (songName, songPath, imgPath, artistID)` +
-              ` VALUES (\"${songName}\",` +
-                       `\"${songFile}\",` +
-                       `\"${songImage}\",` +
-                       `\"${artistID}\")`;
-    pool.query(sql, function (error, results, fields) {
-        if (error) throw error;
-    });
-    */
+})
 
 app.delete("/api/delete/:songID", async (req, res) => {
     const songID = req.params.songID;
-    console.log("Recieved DELETE request for SongID:", songID);
     
     let queryVal = "DELETE FROM songs WHERE songID = " + songID;
-
-    console.log(queryVal)
     
     pool.query(queryVal, (err, result) => {
         if (err) {
@@ -112,8 +86,6 @@ app.patch("/api/update/:songID/:songName", (req, res) => {
     const { songID, songName } = req.params;
 
     let queryVal = `UPDATE musicdatabase.songs SET songName = "${ songName }" WHERE songID = ${ songID }`
-
-    console.log(queryVal);
 
     pool.query(queryVal, (err, result) => {
         if (err) {
